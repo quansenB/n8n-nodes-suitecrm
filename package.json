@@ -52,6 +52,8 @@
     "typescript": "~3.5.2"
   },
   "dependencies": {
+    "@types/request": "^2.48.3",
+    "@types/request-promise-native": "^1.0.17",
     "n8n-core": "^0.10.0"
   },
   "jest": {
