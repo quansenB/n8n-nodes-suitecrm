@@ -1,0 +1,74 @@
+{
+  "name": "n8n-nodes-nordic-nodes",
+  "version": "1.0.0",
+  "author": "Iñaki Breinbauer",
+  "license": "TBD",
+  "description": "Currently contains the Xentral CRM node",
+  "keywords": [
+    "n8n",
+    "nodemation",
+    "nordic",
+    "xentral",
+    "workflow",
+    "crm"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run watch",
+    "build": "tsc && gulp",
+    "tslint": "tslint -p tsconfig.json -c tslint.json",
+    "watch": "tsc --watch",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quansenB/n8n-nodes-nordic-nodes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/quansenB/n8n-nodes-nordic-nodes/issues"
+  },
+  "homepage": "https://github.com/quansenB/n8n-nodes-nordic-nodes#readme",
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "credentials": [
+      "dist/credentials/ExampleCredentials.credentials.js",
+      "dist/credentials/Xentral.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/ExampleNode/ExampleNode.node.js",
+      "dist/nodes/ExampleNode/Xentral.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^10.10.1",
+    "gulp": "^4.0.0",
+    "jest": "^24.9.0",
+    "n8n-workflow": "^0.11.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.17.0",
+    "typescript": "~3.5.2"
+  },
+  "dependencies": {
+    "n8n-core": "^0.10.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testURL": "http://localhost/",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testPathIgnorePatterns": [
+      "/dist/",
+      "/node_modules/"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
+  }
+}
