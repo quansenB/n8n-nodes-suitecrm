@@ -18,7 +18,6 @@
     "type": "git",
     "url": "git+https://github.com/quansenB/n8n-nodes-nordic-nodes.git"
   },
-  "prepublish": "tsc && gulp",
   "main": "index.js",
   "scripts": {
     "dev": "npm run watch",
