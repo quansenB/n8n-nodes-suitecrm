@@ -41,7 +41,7 @@ export async function xentralRequest(
 
 	if (Object.keys(body).length !== 0) {
 		options.body = body;
-	}
+	}	
 
 	try {
 		const responseData = await this.helpers.request(options);

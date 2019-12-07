@@ -218,9 +218,7 @@ export class Xentral implements INodeType {
 					endpoint = '/api/AuftragCreate';
 
 					body = {
-						data: JSON.parse(
-							this.getNodeParameter('data', i) as string
-						) as object
+						data: this.getNodeParameter('data', i) as object
 					} as IDataObject;
 
 				} else if (operation === 'update') {
@@ -231,9 +229,7 @@ export class Xentral implements INodeType {
 					endpoint = '/api/AuftragEdit';
 
 					body = {
-						data: JSON.parse(
-							this.getNodeParameter('data', i) as string
-						) as object
+						data: this.getNodeParameter('data', i) as object
 					} as IDataObject;
 
 				} else if (operation === 'get') {
@@ -244,9 +240,7 @@ export class Xentral implements INodeType {
 					endpoint = '/api/AuftragGet';
 
 					body = {
-						data: JSON.parse(
-							this.getNodeParameter('data', i) as string
-						) as object
+						data: this.getNodeParameter('data', i) as object
 					} as IDataObject;
 
 				} else {
