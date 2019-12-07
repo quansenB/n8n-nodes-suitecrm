@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "author": "Iñaki Breinbauer",
   "license": "TBD",
-  "description": "Currently contains the Xentral CRM node",
+  "description": "Currently contains only the Xentral CRM node",
   "keywords": [
     "n8n",
     "nodemation",
@@ -34,7 +34,7 @@
       "dist/credentials/Xentral.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/ExampleNode/Xentral.node.js"
+      "dist/nodes/Xentral/Xentral.node.js"
     ]
   },
   "devDependencies": {
