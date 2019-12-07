@@ -32,11 +32,9 @@
   ],
   "n8n": {
     "credentials": [
-      "dist/credentials/ExampleCredentials.credentials.js",
       "dist/credentials/Xentral.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/ExampleNode/ExampleNode.node.js",
       "dist/nodes/ExampleNode/Xentral.node.js"
     ]
   },
