@@ -24,7 +24,8 @@
     "build": "tsc && gulp",
     "tslint": "tslint -p tsconfig.json -c tslint.json",
     "watch": "tsc --watch",
-    "test": "jest"
+    "test": "jest",
+    "release": "npm run build && npm publish"
   },
   "files": [
     "dist"
