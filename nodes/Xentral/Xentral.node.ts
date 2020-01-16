@@ -196,6 +196,348 @@ export class Xentral implements INodeType {
 			},
 
 			// ----------------------------------
+			//         address: getAll
+			// ----------------------------------
+			{
+				displayName: 'Query Parameter',
+				name: 'queryParameters',
+				type: 'collection',
+				description: 'The query parameters to filter by.',
+				placeholder: 'Add Parameter',
+				displayOptions: {
+					show: {
+						operation: ['getAll'],
+						resource: ['address']
+					},
+				},
+				default: {},
+				options: [
+					{
+						displayName: 'Anzahl Ergebnisse',
+						name: 'items',
+						type: 'number',
+						default: 20,
+						description: 'Anzahl der Ergebnisse pro Seite. Maximum 1000.',
+					},
+					{
+						displayName: 'Seitenzahl',
+						name: 'page',
+						type: 'number',
+						default: 1,
+						description: 'Seitenzahl',
+					},				
+					{
+						displayName: 'Projekt',
+						name: 'projekt',
+						type: 'number',
+						default: 0,
+						description: 'Suche nach bestimmter Projekt-ID (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Firma',
+						name: 'firma',
+						type: 'string',
+						default: '0',
+						description: 'Suche nach bestimmter Firmen-ID (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Rolle',
+						name: 'rolle',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Rolle (Wert kunde oder lieferant).',
+					},
+					{
+						displayName: 'Typ',
+						name: 'typ',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Adresstyp (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Sprache',
+						name: 'sprache',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Sprache (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Währung',
+						name: 'waehrung',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Währungscode (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Land',
+						name: 'land',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Ländercode (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Kundennummer',
+						name: 'kundennummer',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Kundennummer (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Kundennummer gleicht',
+						name: 'kundennummer_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Kundennummer (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Kundennummer beginnt mit',
+						name: 'kundennummer_startswith',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Kundennummer (Übereinstimmung am Anfang).',
+					},
+					{
+						displayName: 'Kundennummer endet mit',
+						name: 'kundennummer_endswith',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Kundennummer (Übereinstimmung am Ende).',
+					},
+					{
+						displayName: 'Lieferantennummer',
+						name: 'lieferantennummer',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Lieferantennummer (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Lieferantennummer gleicht',
+						name: 'lieferantennummer_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Lieferantennummer (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Lieferantennummer beginnt mit',
+						name: 'lieferantennummer_startswith',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Lieferantennummer (Übereinstimmung am Anfang).',
+					},
+					{
+						displayName: 'Lieferantennummer endet mit',
+						name: 'lieferantennummer_endswith',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Lieferantennummer (Übereinstimmung am Ende).',
+					},
+					{
+						displayName: 'Mitarbeiternummer',
+						name: 'mitarbeiternummer',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Mitarbeiternummer (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Mitarbeiternummer gleicht',
+						name: 'mitarbeiternummer_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Mitarbeiternummer (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Mitarbeiternummer beginnt mit',
+						name: 'mitarbeiternummer_startswith',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Mitarbeiternummer (Übereinstimmung am Anfang).',
+					},
+					{
+						displayName: 'Mitarbeiternummer endet mit',
+						name: 'mitarbeiternummer_endswith',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter Mitarbeiternummer (Übereinstimmung am Ende).',
+					},
+					{
+						displayName: 'Email',
+						name: 'email',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter E-Mail-Adresse (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Email gleicht',
+						name: 'email_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter E-Mail-Adresse (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Email beginnt mit',
+						name: 'email_startswith',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter E-Mail-Adresse (Übereinstimmung am Anfang).',
+					},
+					{
+						displayName: 'Email endet mit',
+						name: 'email_endswith',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmter E-Mail-Adresse (Übereinstimmung am Ende).',
+					},
+					{
+						displayName: 'Sortierung',
+						name: 'sort',
+						type: 'string',
+						default: '',
+						description: 'Sortierung (Beispiel: sort = name,-kundennummer) Verfügbare Felder: name, kundennummer, lieferantennummer, mitarbeiternummer.',
+					},
+					{
+						displayName: 'Freifeld 1',
+						name: 'freifeld1',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld1 (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 2',
+						name: 'freifeld2',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld2 (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 3',
+						name: 'freifeld3',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld3 (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 4',
+						name: 'freifeld4',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld4 (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 5',
+						name: 'freifeld5',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld5 (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 6',
+						name: 'freifeld6',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld6 (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 7',
+						name: 'freifeld7',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld7 (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 8',
+						name: 'freifeld8',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld8 (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 9',
+						name: 'freifeld9',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld9 (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 10',
+						name: 'freifeld10',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld10 (ungefähre Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 1 gleich',
+						name: 'freifeld1_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld1 (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 2 gleich',
+						name: 'freifeld2_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld2 (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 3 gleich',
+						name: 'freifeld3_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld3 (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 4 gleich',
+						name: 'freifeld4_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld4 (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 5 gleich',
+						name: 'freifeld5_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld5 (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 6 gleich',
+						name: 'freifeld6_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld6 (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 7 gleich',
+						name: 'freifeld7_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld7 (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 8 gleich',
+						name: 'freifeld8_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld8 (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 9 gleich',
+						name: 'freifeld9_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld9 (genaue Übereinstimmung).',
+					},
+					{
+						displayName: 'Freifeld 10 gleich',
+						name: 'freifeld10_equals',
+						type: 'string',
+						default: '',
+						description: 'Suche nach bestimmtem Wert im Freifeld10 (genaue Übereinstimmung).',
+					},
+				]
+			},
+
+			// ----------------------------------
 			//         address: create
 			// ----------------------------------
 
@@ -257,8 +599,10 @@ export class Xentral implements INodeType {
 		let resource: string;
 		let operation: string;
 
-		// For Post
+		// For Body
 		let body: IDataObject;
+		// For Query string
+		let qs: IDataObject;
 
 		let requestMethod: string;
 		let endpoint: string;
@@ -269,6 +613,7 @@ export class Xentral implements INodeType {
 			requestMethod = "GET";
 			endpoint = "";
 			body = {} as IDataObject;
+			qs = {} as IDataObject;
 
 			resource = this.getNodeParameter("resource", 0) as string;
 			operation = this.getNodeParameter("operation", 0) as string;
@@ -325,6 +670,11 @@ export class Xentral implements INodeType {
 
 					usesOldApi = false;
 
+					const queryParameters = this.getNodeParameter("queryParameters", i) as IDataObject;
+					for (const key of Object.keys(queryParameters)) {
+						qs[key] = queryParameters[key];
+					}
+
 					endpoint = "/api/v2/adressen";
 				} else if (operation === "getById") {
 					requestMethod = "GET";
@@ -355,7 +705,7 @@ export class Xentral implements INodeType {
 			}
 
 			let responseData = null;
-			if (usesOldApi){
+			if (usesOldApi) {
 				responseData = await xentralRequestOldApi.call(
 					this,
 					requestMethod,
@@ -367,10 +717,11 @@ export class Xentral implements INodeType {
 					this,
 					requestMethod,
 					endpoint,
-					body
+					body,
+					qs
 				);
 			}
-			
+
 
 			returnData.push(responseData as IDataObject);
 		}
