@@ -7,7 +7,7 @@ import {
 	INodeType
 } from "n8n-workflow";
 
-import { xentralRequest } from "./GenericFunctions";
+import { xentralRequestOldApi, xentralRequest } from "./GenericFunctions";
 
 export class Xentral implements INodeType {
 	description: INodeTypeDescription = {
@@ -183,7 +183,7 @@ export class Xentral implements INodeType {
 			{
 				displayName: "ID",
 				name: "id",
-				type: "string",
+				type: "number",
 				displayOptions: {
 					show: {
 						operation: ["getById"],
@@ -221,7 +221,7 @@ export class Xentral implements INodeType {
 			{
 				displayName: "ID",
 				name: "id",
-				type: "string",
+				type: "number",
 				displayOptions: {
 					show: {
 						operation: ["update"],
@@ -263,6 +263,8 @@ export class Xentral implements INodeType {
 		let requestMethod: string;
 		let endpoint: string;
 
+		let usesOldApi = false;
+
 		for (let i = 0; i < items.length; i++) {
 			requestMethod = "GET";
 			endpoint = "";
@@ -279,6 +281,8 @@ export class Xentral implements INodeType {
 					requestMethod = "POST";
 					endpoint = "/api/AuftragCreate";
 
+					usesOldApi = true;
+
 					body = {
 						data: JSON.parse(
 							this.getNodeParameter("data", i) as string
@@ -290,6 +294,8 @@ export class Xentral implements INodeType {
 					// ----------------------------------
 					requestMethod = "POST";
 					endpoint = "/api/AuftragEdit";
+
+					usesOldApi = true;
 
 					body = {
 						data: JSON.parse(
@@ -303,6 +309,8 @@ export class Xentral implements INodeType {
 					requestMethod = "POST";
 					endpoint = "/api/AuftragGet";
 
+					usesOldApi = true;
+
 					body = {
 						data: JSON.parse(
 							this.getNodeParameter("data", i) as string
@@ -315,9 +323,13 @@ export class Xentral implements INodeType {
 				if (operation === "getAll") {
 					requestMethod = "GET";
 
-					endpoint = "/api/v1/adressen";
+					usesOldApi = false;
+
+					endpoint = "/api/v2/adressen";
 				} else if (operation === "getById") {
 					requestMethod = "GET";
+
+					usesOldApi = false;
 
 					const id = this.getNodeParameter("id", i) as number;
 					endpoint = `/api/v2/adressen/${id}`;
@@ -325,27 +337,40 @@ export class Xentral implements INodeType {
 					requestMethod = "POST";
 					endpoint = "/api/v1/adressen";
 
-					body = {
-						data: JSON.parse(this.getNodeParameter("data", i) as string) as object
-					} as IDataObject;
+					usesOldApi = false;
+
+					body = JSON.parse(this.getNodeParameter("data", i) as string) as IDataObject;
 				} else if (operation === "update") {
 					requestMethod = "PUT";
 					const id = this.getNodeParameter("id", i) as number;
 					endpoint = `/api/v1/adressen/${id}`;
 
-					body =  JSON.parse(this.getNodeParameter("data", i) as string) as IDataObject;
+					usesOldApi = false;
+
+					body = JSON.parse(this.getNodeParameter("data", i) as string) as IDataObject;
 
 				}
 			} else {
 				throw new Error(`The resource '${resource}' is not known!`);
 			}
 
-			const responseData = await xentralRequest.call(
-				this,
-				requestMethod,
-				endpoint,
-				body
-			);
+			let responseData = null;
+			if (usesOldApi){
+				responseData = await xentralRequestOldApi.call(
+					this,
+					requestMethod,
+					endpoint,
+					body
+				);
+			} else {
+				responseData = await xentralRequest.call(
+					this,
+					requestMethod,
+					endpoint,
+					body
+				);
+			}
+			
 
 			returnData.push(responseData as IDataObject);
 		}
