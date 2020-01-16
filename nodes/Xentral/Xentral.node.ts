@@ -1,209 +1,252 @@
-import { IExecuteFunctions } from 'n8n-core';
+import { IExecuteFunctions } from "n8n-core";
 
 import {
 	IDataObject,
 	INodeTypeDescription,
 	INodeExecutionData,
-	INodeType,
-	GenericValue
-} from 'n8n-workflow';
+	INodeType
+} from "n8n-workflow";
 
-import { xentralRequest } from './GenericFunctions';
-
-function prepareBodyOldApi(body: IDataObject): IDataObject {
-	for(const property in body){
-		if(typeof body[property] === 'object'){
-			if(body[property] === null){
-				body[property] = '';
-			} else {
-				const subBody = body[property] as IDataObject;
-				body[property] = prepareBodyOldApi(subBody);
-			}
-		} else if(typeof body[property] === 'boolean'){
-			body[property] = body[property] ? '1' : '0';
-		} else if(typeof body[property] === 'number'){
-			body[property] = body[property]!.toString();
-		}		
-	}	
-	return body;
-}
+import { xentralRequest } from "./GenericFunctions";
 
 export class Xentral implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Xentral',
-		name: 'xentral',
-		icon: 'file:xentral.png',
-		group: ['transform'],
+		displayName: "Xentral",
+		name: "xentral",
+		icon: "file:xentral.png",
+		group: ["transform"],
 		version: 1,
-		description: 'Xentral CRM Node',
+		description: "Xentral CRM Node",
 		defaults: {
-			name: 'Xentral',
-			color: '#42b8c5'
+			name: "Xentral",
+			color: "#42b8c5"
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: ["main"],
+		outputs: ["main"],
 		credentials: [
 			{
-				name: 'xentral',
+				name: "xentral",
 				required: true
 			}
 		],
-
 
 		properties: [
 			// ----------------------------------
 			// 				Resources
 			// ----------------------------------
 			{
-				displayName: 'Resource',
-				name: 'resource',
-				type: 'options',
+				displayName: "Resource",
+				name: "resource",
+				type: "options",
 				options: [
 					{
-						name: 'Auftrag (v1)',
-						value: 'order'
+						name: "Order(v1)",
+						value: "order"
 					},
-					/* {
-						name: 'Addresses',
-						value: 'addresses'
-					} */
+					{
+						name: "Address(v1/v2)",
+						value: "address"
+					}
 				],
-				default: 'order',
-				description: 'The resource to operate on.'
+				default: "order",
+				description: "The resource to operate on."
 			},
 
 			// ----------------------------------
 			// 				order
 			// ----------------------------------
 			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
+				displayName: "Operation",
+				name: "operation",
+				type: "options",
 				displayOptions: {
 					show: {
-						resource: ['order']
+						resource: ["order"]
 					}
 				},
 				options: [
 					{
-						name: 'Create',
-						value: 'create',
-						description: 'Create an order'
+						name: "Create",
+						value: "create",
+						description: "Create an order"
 					},
 					{
-						name: 'Edit',
-						value: 'update',
-						description: 'Update an order'
+						name: "Update",
+						value: "update",
+						description: "Update an order"
 					},
 					{
-						name: 'Get',
-						value: 'get',
-						description: 'Get data of an order'
+						name: "Get",
+						value: "get",
+						description: "Get data of an order"
 					}
 				],
-				default: 'create',
-				description: 'The operation to perform.'
+				default: "create",
+				description: "The operation to perform."
 			},
 
 			// ----------------------------------
 			//         order:create
 			// ----------------------------------
 			{
-				displayName: 'Data',
-				name: 'data',
-				type: 'string',
+				displayName: "Data",
+				name: "data",
+				type: "string",
 				displayOptions: {
 					show: {
-						operation: ['create'],
-						resource: ['order']
+						operation: ["create"],
+						resource: ["order"]
 					}
 				},
-				default: '',
+				default: "",
 				required: true,
-				description: 'Data of the order to create.'
+				description: "Data of the order to create."
 			},
 
 			// ----------------------------------
 			//         order:update
 			// ----------------------------------
 			{
-				displayName: 'Data',
-				name: 'data',
-				type: 'string',
+				displayName: "Data",
+				name: "data",
+				type: "string",
 				displayOptions: {
 					show: {
-						operation: ['update'],
-						resource: ['order']
+						operation: ["update"],
+						resource: ["order"]
 					}
 				},
-				default: '',
-				required: false,
-				description: 'Data of the order to create.'
+				default: "",
+				required: true,
+				description: "Data of the order to update."
 			},
 
 			// ----------------------------------
 			//         order:get
-			// ----------------------------------			
+			// ----------------------------------
 			{
-				displayName: 'Data',
-				name: 'data',
-				type: 'string',
+				displayName: "Data",
+				name: "data",
+				type: "string",
 				displayOptions: {
 					show: {
-						operation: ['get'],
-						resource: ['order']
+						operation: ["get"],
+						resource: ["order"]
 					}
 				},
-				default: '',
-				required: false,
-				description: 'Data of the order to create.'
+				default: "",
+				required: true,
+				description: "Data of the order to create."
 			},
 
 			// ----------------------------------
-			//         addresses
+			//         address
 			// ----------------------------------
 			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
+				displayName: "Operation",
+				name: "operation",
+				type: "options",
 				displayOptions: {
 					show: {
-						resource: ['addresses']
+						resource: ["address"]
 					}
 				},
 				options: [
 					{
-						name: 'Get All',
-						value: 'getAll',
-						description: 'Get the address list'
+						name: "Create(v1)",
+						value: "create",
+						description: "Create new address"
 					},
 					{
-						name: 'Get by ID',
-						value: 'getById',
-						description: 'Get single address by its ID'
+						name: "Update(v1)",
+						value: "update",
+						description: "Edit address"
+					},
+					{
+						name: "Get All(v2)",
+						value: "getAll",
+						description: "Call up the address list"
+					},
+					{
+						name: "Get by ID(v2)",
+						value: "getById",
+						description: "Get individual addresses"
 					}
 				],
-				default: 'getById',
-				description: 'retrieve addresses'
+				default: "create",
+				description: "Address options"
 			},
 
 			// ----------------------------------
-			//         addresses:getById
+			//         address: getById
 			// ----------------------------------
 			{
-				displayName: 'ID',
-				name: 'id',
-				type: 'number',
+				displayName: "ID",
+				name: "id",
+				type: "string",
 				displayOptions: {
 					show: {
-						operation: ['getById'],
-						resource: ['addresses']
+						operation: ["getById"],
+						resource: ["address"]
 					}
 				},
-				default: 0,
+				default: 1,
 				required: true,
-				description: 'Get a single address'
+				description: "Address Id"
+			},
+
+			// ----------------------------------
+			//         address: create
+			// ----------------------------------
+
+			{
+				displayName: "Data",
+				name: "data",
+				type: "string",
+				displayOptions: {
+					show: {
+						operation: ["create"],
+						resource: ["address"]
+					}
+				},
+				default: "",
+				required: true,
+				description: "Data of the address to create."
+			},
+
+
+			// ----------------------------------
+			//         address: update
+			// ----------------------------------
+			{
+				displayName: "ID",
+				name: "id",
+				type: "string",
+				displayOptions: {
+					show: {
+						operation: ["update"],
+						resource: ["address"]
+					}
+				},
+				default: 1,
+				required: true,
+				description: "ID of the address to update."
+			},
+			{
+				displayName: "Data",
+				name: "data",
+				type: "string",
+				displayOptions: {
+					show: {
+						operation: ["update"],
+						resource: ["address"]
+					}
+				},
+				default: 1,
+				required: true,
+				description: "Data of the address to update."
 			}
+
 		]
 	};
 
@@ -221,71 +264,78 @@ export class Xentral implements INodeType {
 		let endpoint: string;
 
 		for (let i = 0; i < items.length; i++) {
-			requestMethod = 'GET';
-			endpoint = '';
+			requestMethod = "GET";
+			endpoint = "";
 			body = {} as IDataObject;
 
-			resource = this.getNodeParameter('resource', 0) as string;
-			operation = this.getNodeParameter('operation', 0) as string;
+			resource = this.getNodeParameter("resource", 0) as string;
+			operation = this.getNodeParameter("operation", 0) as string;
 
-			if (resource === 'order') {
-				if (operation === 'create') {
+			if (resource === "order") {
+				if (operation === "create") {
 					// ----------------------------------
 					//         create
 					// ----------------------------------
-					requestMethod = 'POST';
-					endpoint = '/api/AuftragCreate';
+					requestMethod = "POST";
+					endpoint = "/api/AuftragCreate";
 
 					body = {
-						data: this.getNodeParameter('data', i) as object
+						data: JSON.parse(
+							this.getNodeParameter("data", i) as string
+						) as object
 					} as IDataObject;
-
-					body = prepareBodyOldApi(body);
-
-				} else if (operation === 'update') {
+				} else if (operation === "update") {
 					// ----------------------------------
 					//         update
 					// ----------------------------------
-					requestMethod = 'POST';
-					endpoint = '/api/AuftragEdit';
+					requestMethod = "POST";
+					endpoint = "/api/AuftragEdit";
 
 					body = {
-						data: this.getNodeParameter('data', i) as object
+						data: JSON.parse(
+							this.getNodeParameter("data", i) as string
+						) as object
 					} as IDataObject;
-
-					body = prepareBodyOldApi(body);
-
-				} else if (operation === 'get') {
+				} else if (operation === "get") {
 					// ----------------------------------
 					//         get
 					// ----------------------------------
-					requestMethod = 'POST';
-					endpoint = '/api/AuftragGet';
+					requestMethod = "POST";
+					endpoint = "/api/AuftragGet";
 
 					body = {
-						data: this.getNodeParameter('data', i) as object
+						data: JSON.parse(
+							this.getNodeParameter("data", i) as string
+						) as object
 					} as IDataObject;
-
-					body = prepareBodyOldApi(body);
-
 				} else {
 					throw new Error(`The operation '${operation}' is not known!`);
 				}
+			} else if (resource === "address") {
+				if (operation === "getAll") {
+					requestMethod = "GET";
 
-			} else if (resource === 'addresses') {
-				if (operation === 'getAll') {
-					requestMethod = 'GET';
+					endpoint = "/api/v1/adressen";
+				} else if (operation === "getById") {
+					requestMethod = "GET";
 
-					endpoint = '/api/v1/adressen';
+					const id = this.getNodeParameter("id", i) as number;
+					endpoint = `/api/v2/adressen/${id}`;
+				} else if (operation === "create") {
+					requestMethod = "POST";
+					endpoint = "/api/v1/adressen";
 
-				} else if (operation === 'getById') {
-					requestMethod = 'GET';
-
-					const id = this.getNodeParameter('id', i) as number;
+					body = {
+						data: JSON.parse(this.getNodeParameter("data", i) as string) as object
+					} as IDataObject;
+				} else if (operation === "update") {
+					requestMethod = "PUT";
+					const id = this.getNodeParameter("id", i) as number;
 					endpoint = `/api/v1/adressen/${id}`;
 
-				}
+					body =  JSON.parse(this.getNodeParameter("data", i) as string) as IDataObject;
 
+				}
 			} else {
 				throw new Error(`The resource '${resource}' is not known!`);
 			}
