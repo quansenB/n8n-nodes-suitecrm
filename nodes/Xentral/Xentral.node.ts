@@ -9,6 +9,24 @@ import {
 
 import { xentralRequestOldApi, xentralRequest } from './GenericFunctions';
 
+function prepareBodyOldApi(body: IDataObject): IDataObject {	
+	for (const property in body) {	
+		if (typeof body[property] === 'object') {	
+			if (body[property] === null) {	
+				body[property] = '';	
+			} else {	
+				const subBody = body[property] as IDataObject;	
+				body[property] = prepareBodyOldApi(subBody);	
+			}	
+		} else if (typeof body[property] === 'boolean') {	
+			body[property] = body[property] ? '1' : '0';	
+		} else if (typeof body[property] === 'number') {	
+			body[property] = body[property]!.toString();	
+		}	
+	}	
+	return body;	
+}
+
 export class Xentral implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Xentral',
@@ -630,6 +648,7 @@ export class Xentral implements INodeType {
 					body = {
 						data: this.getNodeParameter('data', i) as object
 					} as IDataObject;
+					body = prepareBodyOldApi(body);
 				} else if (operation === 'update') {
 					// ----------------------------------
 					//         update
@@ -642,6 +661,7 @@ export class Xentral implements INodeType {
 					body = {
 						data: this.getNodeParameter('data', i) as object
 					} as IDataObject;
+					body = prepareBodyOldApi(body);
 				} else if (operation === 'get') {
 					// ----------------------------------
 					//         get
@@ -654,11 +674,18 @@ export class Xentral implements INodeType {
 					body = {
 						data: this.getNodeParameter('data', i) as object
 					} as IDataObject;
+					body = prepareBodyOldApi(body);
 				} else {
 					throw new Error(`The operation '${operation}' is not known!`);
 				}
 			} else if (resource === 'address') {
+				// ----------------------------------
+				//         addresses
+				// ----------------------------------
 				if (operation === 'getAll') {
+					// ----------------------------------
+					//         getAll
+					// ----------------------------------
 					requestMethod = 'GET';
 
 					usesOldApi = false;
@@ -670,6 +697,9 @@ export class Xentral implements INodeType {
 
 					endpoint = '/api/v2/adressen';
 				} else if (operation === 'getById') {
+					// ----------------------------------
+					//         getByID
+					// ----------------------------------
 					requestMethod = 'GET';
 
 					usesOldApi = false;
@@ -677,6 +707,9 @@ export class Xentral implements INodeType {
 					const id = this.getNodeParameter('id', i) as number;
 					endpoint = `/api/v2/adressen/${id}`;
 				} else if (operation === 'create') {
+					// ----------------------------------
+					//         create
+					// ----------------------------------
 					requestMethod = 'POST';
 					endpoint = '/api/v1/adressen';
 
@@ -684,6 +717,9 @@ export class Xentral implements INodeType {
 
 					body = JSON.parse(this.getNodeParameter('data', i) as string) as IDataObject;
 				} else if (operation === 'update') {
+					// ----------------------------------
+					//         update
+					// ----------------------------------
 					requestMethod = 'PUT';
 					const id = this.getNodeParameter('id', i) as number;
 					endpoint = `/api/v1/adressen/${id}`;
@@ -691,7 +727,6 @@ export class Xentral implements INodeType {
 					usesOldApi = false;
 
 					body = JSON.parse(this.getNodeParameter('data', i) as string) as IDataObject;
-
 				}
 			} else {
 				throw new Error(`The resource '${resource}' is not known!`);
