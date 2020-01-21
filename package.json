@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-nordic-nodes",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "Iñaki Breinbauer",
   "license": "MIT",
   "description": "Currently contains only the Xentral CRM node",
