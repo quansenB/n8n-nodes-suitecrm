@@ -3,7 +3,7 @@
   "version": "0.1.8",
   "author": "Iñaki Breinbauer",
   "license": "MIT",
-  "description": "Currently contains only the Xentral CRM node",
+  "description": "Currently contains only the Xentral ERP node",
   "keywords": [
     "n8n",
     "nodemation",

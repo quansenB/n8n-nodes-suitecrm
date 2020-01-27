@@ -675,7 +675,7 @@ export class Xentral implements INodeType {
 				required: false,
 				description: 'The query parameters to filter by',
 				placeholder: 'Add Parameter',
-				options: [		
+				options: [
 					{
 						displayName: 'Seitenzahl',
 						name: 'page',
