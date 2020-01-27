@@ -34,7 +34,7 @@ export class Xentral implements INodeType {
 		icon: 'file:xentral.png',
 		group: ['transform'],
 		version: 1,
-		description: 'Xentral CRM Node',
+		description: 'Xentral ERP Node',
 		defaults: {
 			name: 'Xentral',
 			color: '#42b8c5'
@@ -675,7 +675,21 @@ export class Xentral implements INodeType {
 				required: false,
 				description: 'The query parameters to filter by',
 				placeholder: 'Add Parameter',
-				options: [
+				options: [		
+					{
+						displayName: 'Seitenzahl',
+						name: 'page',
+						type: 'number',
+						default: 1,
+						description: 'Seitenzahl, maximal: 1000'
+					},
+					{
+						displayName: 'Anzahl Ergebnisse',
+						name: 'items',
+						type: 'number',
+						default: 20,
+						description: 'Anzahl der Ergebnisse pro Seite, maximal: 1000'
+					},
 					{
 						displayName: 'Status',
 						name: 'status',
@@ -684,28 +698,28 @@ export class Xentral implements INodeType {
 						description: 'Suche nach Rechnungs-Status (genaue Übereinstimmung)'
 					},
 					{
-						displayName: 'Belegnr',
+						displayName: 'Belegnummer',
 						name: 'belegnr',
 						type: 'string',
 						default: '',
 						description: 'Suche nach Belegnummer (ungefähre Übereinstimmung)'
 					},
 					{
-						displayName: 'Belegnr Equals',
+						displayName: 'Belegnummer Gleicht',
 						name: 'belegnr_equals',
 						type: 'string',
 						default: '',
 						description: 'Suche nach Belegnummer (genaue Übereinstimmung)'
 					},
 					{
-						displayName: 'Belegnr Starts With',
+						displayName: 'Belegnummer beginnt mit',
 						name: 'belegnr_startswith',
 						type: 'string',
 						default: '',
 						description: 'Suche nach Belegnummer (Übereinstimmung am Anfang)'
 					},
 					{
-						displayName: 'Belegnr Ends With',
+						displayName: 'Belegnummer endet mit',
 						name: 'belegnr_endswith',
 						type: 'string',
 						default: '',
@@ -719,21 +733,21 @@ export class Xentral implements INodeType {
 						description: 'Suche nach Kundennummer (ungefähre Übereinstimmung)'
 					},
 					{
-						displayName: 'Kundennummer Equals',
+						displayName: 'Kundennummer Gleicht',
 						name: 'kundennummer_equals',
 						type: 'string',
-						default: 'angelegt',
+						default: '',
 						description: 'Suche nach Kundennummer (genaue Übereinstimmung)'
 					},
 					{
-						displayName: 'Kundennummer Starts With',
+						displayName: 'Kundennummer beginnt mit',
 						name: 'kundennummer_startswith',
 						type: 'string',
 						default: '',
 						description: 'Suche nach Kundennummer (Übereinstimmung am Anfang)'
 					},
 					{
-						displayName: 'Kundennummer Ends With',
+						displayName: 'Kundennummer endet mit',
 						name: 'kundennummer_endswith',
 						type: 'string',
 						default: '',
@@ -747,42 +761,28 @@ export class Xentral implements INodeType {
 						description: 'Suche nach bestimmtem Belegdatum (genaue Übereinstimmung)'
 					},
 					{
-						displayName: 'Status',
-						name: 'status',
-						type: 'string',
-						default: 'angelegt',
-						description: 'Suche nach Rechnungs-Status (genaue Übereinstimmung)'
-					},
-					{
-						displayName: 'Datum Gt',
+						displayName: 'Datum größer Suchwert',
 						name: 'datum_gt',
 						type: 'string',
 						default: '',
 						description: 'Suche nach bestimmtem Belegdatum (Datum größer Suchwert)'
 					},
 					{
-						displayName: 'Datum Gte',
+						displayName: 'Datum größer, gleich Suchwert',
 						name: 'datum_gte',
 						type: 'string',
 						default: '',
 						description: 'Suche nach bestimmtem Belegdatum (Datum größer gleich Suchwert)'
 					},
 					{
-						displayName: 'Datum Lt',
+						displayName: 'Datum kleiner Suchwert',
 						name: 'datum_lt',
 						type: 'string',
 						default: '',
 						description: 'Suche nach bestimmtem Belegdatum (Datum kleiner Suchwert)'
 					},
 					{
-						displayName: 'Datum Lte',
-						name: 'datum_lte',
-						type: 'string',
-						default: '',
-						description: 'Suche nach bestimmtem Belegdatum (Datum kleiner gleich Suchwert)'
-					},
-					{
-						displayName: 'Datum Lte',
+						displayName: 'Datum kleiner, gleich Suchwert',
 						name: 'datum_lte',
 						type: 'string',
 						default: '',
@@ -810,32 +810,18 @@ export class Xentral implements INodeType {
 						description: 'Rechnungen eines bestimmten Projekt filtern'
 					},
 					{
-						displayName: 'Sort',
+						displayName: 'Sortieren',
 						name: 'sort',
 						type: 'string',
 						default: 'sort=belegnr',
 						description: 'Sortierung (Beispiel: sort=belegnr Verfügbare Felder: belegnr, datum'
 					},
 					{
-						displayName: 'Include',
+						displayName: 'Einschließen',
 						name: 'include',
 						type: 'string',
 						default: '',
-						description: 'Rechnungen eines bestimmten Projekt filtern'
-					},
-					{
-						displayName: 'Page',
-						name: 'page',
-						type: 'number',
-						default: 10,
-						description: 'Seitenzahl, maximal: 1000'
-					},
-					{
-						displayName: 'Items',
-						name: 'items',
-						type: 'number',
-						default: 20,
-						description: 'Anzahl der Ergebnisse pro Seite, maximal: 1000'
+						description: 'Unter-Resourcen in Resource einbinden (Beispiel: include=positionen) Verfügbare Includes: positionen, protokoll'
 					},
 				]
 			}
@@ -947,7 +933,7 @@ export class Xentral implements INodeType {
 
 					usesOldApi = false;
 
-					body = JSON.parse(this.getNodeParameter('data', i) as string) as IDataObject;
+					body = this.getNodeParameter('data', i) as IDataObject;
 				} else if (operation === 'update') {
 					// ----------------------------------
 					//         update
@@ -958,7 +944,7 @@ export class Xentral implements INodeType {
 
 					usesOldApi = false;
 
-					body = JSON.parse(this.getNodeParameter('data', i) as string) as IDataObject;
+					body = this.getNodeParameter('data', i) as IDataObject;
 				}
 			} else if (resource === 'rechnungen') {
 				// ----------------------------------
@@ -976,6 +962,9 @@ export class Xentral implements INodeType {
 					endpoint = `/api/v1/belege/rechnungen/${id}`;
 
 				} else if (operation === 'getAll') {
+					// ----------------------------------
+					//         getAll
+					// ----------------------------------
 					requestMethod = 'GET';
 
 					const queryParameters = this.getNodeParameter('queryParameters', i) as IDataObject;
@@ -984,7 +973,7 @@ export class Xentral implements INodeType {
 						qs[key] = queryParameters[key];
 					}
 
-					endpoint = '/api/v1/belege/rechnungen'
+					endpoint = '/api/v1/belege/rechnungen';
 
 				}
 
@@ -1009,7 +998,6 @@ export class Xentral implements INodeType {
 					qs
 				);
 			}
-
 
 			returnData.push(responseData as IDataObject);
 		}
