@@ -58,11 +58,11 @@ export class Xentral implements INodeType {
 				type: 'options',
 				options: [
 					{
-						name: 'Order(v1)',
+						name: 'Auftrag(v1)',
 						value: 'order'
 					},
 					{
-						name: 'Address(v1/v2)',
+						name: 'Adresse(v1/v2)',
 						value: 'address'
 					},
 					{
