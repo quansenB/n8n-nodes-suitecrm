@@ -66,9 +66,26 @@ export class Xentral implements INodeType {
 						value: 'address'
 					},
 					{
-						name: "Rechnungen(v1)",
-						value: "rechnungen"
-					}
+						name: 'Rechnungsbeleg(v1)',
+						value: 'rechnungen'
+					},
+					{
+						name: 'Angebotsbeleg(v1)',
+						value: 'angebote'
+					},
+					{
+						name: 'Auftragsbeleg(v1)',
+						value: 'auftraege'
+					},
+					{
+						name: 'Lieferschein(v1)',
+						value: 'lieferscheine'
+					},
+					{
+						name: 'Gutschrift(v1)',
+						value: 'gutschriften'
+					},
+
 				],
 				default: 'order',
 				description: 'The resource to operate on.'
@@ -612,9 +629,12 @@ export class Xentral implements INodeType {
 			},
 
 			// ----------------------------------
-			// 				rechnungen
+			// 				belege
 			// ----------------------------------
 
+			// ----------------------------------
+			// 				rechnungen
+			// ----------------------------------
 			{
 				displayName: 'Operation',
 				name: 'operation',
@@ -628,20 +648,55 @@ export class Xentral implements INodeType {
 					{
 						name: 'Get All (v1)',
 						value: 'getAll',
-						description: 'Rechnungsliste abrufen und Rechnungen suchen'
+						description: 'Rechnungsliste abrufen'
 					},
 					{
 						name: 'Get by ID (v1)',
 						value: 'getById',
 						description: 'Einzelne Rechnung abrufen'
-					}
+					},/* 
+					{
+						name: 'Delete(v1)',
+						value: 'delete',
+						description: 'Einzelne Rechnung löschen'
+					}, */
+
 				],
 				default: 'getById',
-				description: 'Rechnungen optionen'
+				description: 'Rechnungsoptionen'
 			},
 
 			// ----------------------------------
-			//         rechnungen: getById
+			// 		belege (außer Rechnungen)
+			// ----------------------------------
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				displayOptions: {
+					show: {
+						resource: ['angebote', 'auftraege', 'lieferscheine', 'gutschriften']
+					}
+				},
+				options: [
+					{
+						name: 'Get All (v1)',
+						value: 'getAll',
+						description: 'Belegliste abrufen'
+					},
+					{
+						name: 'Get by ID (v1)',
+						value: 'getById',
+						description: 'Einzelnen Beleg abrufen'
+					},
+
+				],
+				default: 'getById',
+				description: 'Belegoptionen'
+			},
+
+			// ----------------------------------
+			//         belege: getById
 			// ----------------------------------
 			{
 				displayName: 'ID',
@@ -649,8 +704,8 @@ export class Xentral implements INodeType {
 				type: 'number',
 				displayOptions: {
 					show: {
-						operation: ['getById'],
-						resource: ['rechnungen']
+						operation: ['getById'/* , 'delete' */],
+						resource: ['rechnungen', 'angebote', 'auftraege', 'lieferscheine', 'gutschriften']
 					}
 				},
 				default: 1,
@@ -659,7 +714,7 @@ export class Xentral implements INodeType {
 			},
 
 			// ----------------------------------
-			//         rechnungen: getAll
+			//         belege: getAll
 			// ----------------------------------
 			{
 				displayName: 'Query Parameters',
@@ -668,7 +723,7 @@ export class Xentral implements INodeType {
 				displayOptions: {
 					show: {
 						operation: ['getAll'],
-						resource: ['rechnungen']
+						resource: ['rechnungen', 'angebote', 'auftraege', 'lieferscheine', 'gutschriften']
 					}
 				},
 				default: {},
@@ -961,6 +1016,16 @@ export class Xentral implements INodeType {
 
 					endpoint = `/api/v1/belege/rechnungen/${id}`;
 
+					/* } else if (operation === 'delete') {
+						// ----------------------------------
+						//         delete
+						// ----------------------------------
+						requestMethod = 'DELETE';
+	
+						const id = this.getNodeParameter('id', i) as number;
+	
+						endpoint = `/api/v1/belege/rechnungen/${id}`;
+	 				*/
 				} else if (operation === 'getAll') {
 					// ----------------------------------
 					//         getAll
@@ -974,7 +1039,126 @@ export class Xentral implements INodeType {
 					}
 
 					endpoint = '/api/v1/belege/rechnungen';
+				}
 
+			} else if (resource === 'angebote') {
+				// ----------------------------------
+				//         angebote
+				// ----------------------------------
+
+				if (operation === 'getById') {
+					// ----------------------------------
+					//         getByID
+					// ----------------------------------
+					requestMethod = 'GET';
+
+					const id = this.getNodeParameter('id', i) as number;
+
+					endpoint = `/api/v1/belege/angebote/${id}`;
+
+				} else if (operation === 'getAll') {
+					// ----------------------------------
+					//         getAll
+					// ----------------------------------
+					requestMethod = 'GET';
+
+					const queryParameters = this.getNodeParameter('queryParameters', i) as IDataObject;
+
+					for (const key of Object.keys(queryParameters)) {
+						qs[key] = queryParameters[key];
+					}
+
+					endpoint = '/api/v1/belege/angebote';
+				}
+
+			} else if (resource === 'auftraege') {
+				// ----------------------------------
+				//         auftraege
+				// ----------------------------------
+
+				if (operation === 'getById') {
+					// ----------------------------------
+					//         getByID
+					// ----------------------------------
+					requestMethod = 'GET';
+
+					const id = this.getNodeParameter('id', i) as number;
+
+					endpoint = `/api/v1/belege/auftraege/${id}`;
+
+				} else if (operation === 'getAll') {
+					// ----------------------------------
+					//         getAll
+					// ----------------------------------
+					requestMethod = 'GET';
+
+					const queryParameters = this.getNodeParameter('queryParameters', i) as IDataObject;
+
+					for (const key of Object.keys(queryParameters)) {
+						qs[key] = queryParameters[key];
+					}
+
+					endpoint = '/api/v1/belege/auftraege';
+				}
+
+			} else if (resource === 'lieferscheine') {
+				// ----------------------------------
+				//         lieferscheine
+				// ----------------------------------
+
+				if (operation === 'getById') {
+					// ----------------------------------
+					//         getByID
+					// ----------------------------------
+					requestMethod = 'GET';
+
+					const id = this.getNodeParameter('id', i) as number;
+
+					endpoint = `/api/v1/belege/lieferscheine/${id}`;
+
+				} else if (operation === 'getAll') {
+					// ----------------------------------
+					//         getAll
+					// ----------------------------------
+					requestMethod = 'GET';
+
+					const queryParameters = this.getNodeParameter('queryParameters', i) as IDataObject;
+
+					for (const key of Object.keys(queryParameters)) {
+						qs[key] = queryParameters[key];
+					}
+
+					endpoint = '/api/v1/belege/lieferscheine';
+				}
+
+			} else if (resource === 'gutschriften') {
+				// ----------------------------------
+				//         gutschriften
+				// ----------------------------------
+
+				if (operation === 'getById') {
+					// ----------------------------------
+					//         getByID
+					// ----------------------------------
+					requestMethod = 'GET';
+
+					const id = this.getNodeParameter('id', i) as number;
+
+					endpoint = `/api//v1/belege/gutschriften/${id}`;
+
+				} else if (operation === 'getAll') {
+					// ----------------------------------
+					//         getAll
+					// ----------------------------------
+					requestMethod = 'GET';
+
+					const queryParameters = this.getNodeParameter('queryParameters', i) as IDataObject;
+
+					for (const key of Object.keys(queryParameters)) {
+						qs[key] = queryParameters[key];
+					}
+
+					endpoint = '/api/v1/belege/gutschriften';
 				}
 
 			} else {
