@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-nordic-nodes",
-  "version": "0.1.13",
+  "version": "0.2.0",
   "author": "Iñaki Breinbauer",
   "license": "MIT",
   "description": "Currently contains only the Xentral ERP node",
