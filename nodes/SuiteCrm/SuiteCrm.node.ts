@@ -7,13 +7,11 @@ import {
 	INodeExecutionData,
 	INodeTypeDescription,
 	INodeType,
-	GenericValue,
 } from 'n8n-workflow';
 
 import {
 	suiteCrmApiRequest
 } from './GenericFunctions';
-import { jiraSoftwareCloudApiRequestAllItems } from '../Jira/GenericFunctions';
 
 export class SuiteCrm implements INodeType {
 	description: INodeTypeDescription = {
