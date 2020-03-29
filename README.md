@@ -17,4 +17,4 @@ n8n
 
 
 # Latest functionality
-- Xentral Node, AuftragCreate, AuftragEdit, AuftragGet
+- Suite CRM node
