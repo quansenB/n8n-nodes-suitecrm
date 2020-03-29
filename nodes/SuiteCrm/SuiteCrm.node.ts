@@ -681,7 +681,7 @@ export class SuiteCrm implements INodeType {
 						// tslint:disable-next-line: no-any
 						const fields = this.getNodeParameter('fields', 0) as any;
 
-						if (fields.field.length > 0) {
+						if (fields.hasOwnProperty('field')) {
 							let fieldsString = '';
 							fields.field.forEach((param: { fieldName: string; }) => {
 								fieldsString = fieldsString.concat(',').concat(param.fieldName);
@@ -727,7 +727,7 @@ export class SuiteCrm implements INodeType {
 						}
 
 
-						if (fields.field.length > 0) {
+						if (fields.hasOwnProperty('field')) {
 							let fieldsString = '';
 							fields.field.forEach((param: { fieldName: string; }) => {
 								fieldsString = fieldsString.concat(',').concat(param.fieldName);
