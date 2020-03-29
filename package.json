@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-dnc-xentral",
-  "version": "0.2.2",
+  "version": "0.1.0",
   "author": "Iñaki Breinbauer",
   "license": "MIT",
   "description": "Xentral support for n8n",
