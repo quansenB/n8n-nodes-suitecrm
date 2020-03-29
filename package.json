@@ -37,7 +37,7 @@
     ],
     "nodes": [
       "dist/nodes/Xentral/Xentral.node.js",
-      "dist/nodes/Xentral/SuiteCrm.node.js"
+      "dist/nodes/SuiteCrm/SuiteCrm.node.js"
     ]
   },
   "devDependencies": {
