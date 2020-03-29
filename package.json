@@ -33,12 +33,10 @@
   ],
   "n8n": {
     "credentials": [
-      "dist/credentials/Xentral.credentials.js",
-      "dist/credentials/SuiteCrmApi.credentials.js"
+      "dist/credentials/Xentral.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Xentral/Xentral.node.js",
-      "dist/nodes/SuiteCrm/SuiteCrm.node.js"
+      "dist/nodes/Xentral/Xentral.node.js"
     ]
   },
   "devDependencies": {
