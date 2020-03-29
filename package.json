@@ -1,13 +1,14 @@
 {
-  "name": "n8n-nodes-nordic-nodes",
+  "name": "n8n-nodes-dnc-xentral",
   "version": "0.2.2",
   "author": "Iñaki Breinbauer",
   "license": "MIT",
-  "description": "Currently contains only the Xentral ERP node",
+  "description": "Xentral support for n8n",
   "keywords": [
     "n8n",
     "nodemation",
-    "nordic",
+    "dnc",
+    "digital north consulting",
     "nodes",
     "custom",
     "xentral",
@@ -16,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/quansenB/n8n-nodes-nordic-nodes.git"
+    "url": "git+https://github.com/quansenB/n8n-nodes-dnc-xentral.git"
   },
   "main": "index.js",
   "scripts": {
