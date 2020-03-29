@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Iñaki Breinbauer",
   "license": "MIT",
-  "description": "Xentral support for n8n",
+  "description": "Suite CRM support for n8n",
   "keywords": [
     "n8n",
     "nodemation",
@@ -11,13 +11,13 @@
     "digital north consulting",
     "nodes",
     "custom",
-    "xentral",
+    "suite",
     "workflow",
     "crm"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/quansenB/n8n-nodes-dnc-xentral.git"
+    "url": "git+https://github.com/quansenB/n8n-nodes-dnc-suitecrm.git"
   },
   "main": "index.js",
   "scripts": {
@@ -33,10 +33,10 @@
   ],
   "n8n": {
     "credentials": [
-      "dist/credentials/Xentral.credentials.js"
+      "dist/credentials/SuiteCrmApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Xentral/Xentral.node.js"
+      "dist/nodes/SuiteCrm/SuiteCrm.node.js"
     ]
   },
   "devDependencies": {
