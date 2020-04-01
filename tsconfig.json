@@ -15,6 +15,7 @@
 		"preserveConstEnums": true,
 		"declaration": true,
 		"outDir": "./dist/",
+		"rootDir": "./",
 		"target": "es2017",
 		"sourceMap": true
 	},
