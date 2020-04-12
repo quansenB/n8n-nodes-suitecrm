@@ -41,3 +41,5 @@ SuiteCRM endpoints include Contacts, Accounts, Leads, Targets, Opportunities and
 # n8n-nodes-nordic-nodes
 
 Nodes by digital-north-consulting.com. Contact us for consulting on this [node](mailto:info@digital-north-consulting.com).
+
+Programmed with :heart: by [quansenB](https://github.com/quansenB)
