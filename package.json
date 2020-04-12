@@ -2,7 +2,7 @@
   "name": "n8n-nodes-dnc-suitecrm",
   "version": "0.1.0",
   "author": "Iñaki Breinbauer",
-  "license": "MIT",
+  "license": "GNU General Public License v3.0",
   "description": "Suite CRM support for n8n",
   "keywords": [
     "n8n",
