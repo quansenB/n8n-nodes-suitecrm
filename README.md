@@ -1,10 +1,10 @@
-# Installation
+# If you have n8n installed: Install custom nodes module
 
-Install it to the node_modules folder on the same level of n8n and n8n-core.
+Install it to the n8n root folder. This is the node_modules folder on the same level of n8n and n8n-core. This differs when you used the -g flag on n8n initial installation. From there do:
 
-n8n-nodes-dnc-suitecrm
+npm install n8n-nodes-dnc-suitecrm
 
-# Install n8n
+# Fresh install n8n
 
 Navigate to desired folder, create a package json and install n8n like so:
 
@@ -15,14 +15,6 @@ mkdir my-n8n && cd my-n8n
 npm init --yes
 
 npm install n8n
-
-# Install custom nodes module
-
-Navigate to n8n root folder with the package.json, install custom nodes:
-
-cd /var/www/vhosts/my-n8n
-
-npm install n8n-nodes-dnc-suitecrm
 
 # Start n8n
 
