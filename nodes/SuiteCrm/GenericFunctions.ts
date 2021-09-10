@@ -25,7 +25,7 @@ export interface IProduct {
  * @returns {Promise<any>}
  */
 export async function suiteCrmApiRequest(this: IHookFunctions | IExecuteFunctions, method: string, endpoint: string, body: IDataObject, query?: IDataObject, dataKey?: string): Promise<any> { // tslint:disable-line:no-any
-	const credentials = this.getCredentials('suiteCrmApi');
+	const credentials = await this.getCredentials('suiteCrmApi');
 	if (credentials === undefined) {
 		throw new Error('Please provide credentials');
 	}
@@ -79,7 +79,7 @@ export async function suiteCrmApiRequest(this: IHookFunctions | IExecuteFunction
 			return responseData[dataKey] as IDataObject;
 		}
 	}
-	catch (error) {
+	catch (error: any) {
 		if (error.statusCode === 401) {
 			// Return a clear error
 			throw new Error('The Suite CRM credentials are not valid!');
