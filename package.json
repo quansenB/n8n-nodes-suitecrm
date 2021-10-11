@@ -1,23 +1,25 @@
 {
-  "name": "@digital-boss/n8n-nodes-suitecrm",
-  "version": "1.0.0",
+  "name": "@digital-boss/n8n-nodes-zammad",
+  "version": "1.0.2",
   "author": "Iñaki Breinbauer",
   "license": "GPL-3.0",
-  "description": "Suite CRM support for n8n",
+  "description": "Zammad support for n8n",
   "keywords": [
     "n8n",
     "nodemation",
     "dnc",
     "digital north consulting",
+    "digital boss",
+    "helpdesk",
+    "customer service",
     "nodes",
     "custom",
-    "suite",
-    "workflow",
-    "crm"
+    "zammad",
+    "workflow"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/quansenB/n8n-nodes-dnc-suitecrm.git"
+    "url": "git+https://github.com/quansenB/n8n-nodes-zammad.git"
   },
   "main": "index.js",
   "scripts": {
@@ -33,10 +35,12 @@
   ],
   "n8n": {
     "credentials": [
-      "dist/credentials/SuiteCrmApi.credentials.js"
+      "dist/credentials/ZammadBasicApi.credentials.js",
+      "dist/credentials/ZammadOAuth2Api.credentials.js",
+      "dist/credentials/ZammadTokenApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/SuiteCrm/SuiteCrm.node.js"
+      "dist/nodes/Zammad/Zammad.node.js"
     ]
   },
   "devDependencies": {
@@ -47,7 +51,7 @@
     "@types/request-promise-native": "^1.0.17",
     "gulp": "^4.0.0",
     "jest": "^27.1.1",
-    "n8n-workflow": "^0.67.0",
+    "n8n-workflow": "^0.71.0",
     "ts-jest": "^27.0.5",
     "tslint": "^6.1.3",
     "typescript": "~4.4.2"
@@ -55,7 +59,7 @@
   "dependencies": {
     "@types/request": "^2.48.3",
     "@types/request-promise-native": "^1.0.17",
-    "n8n-core": "^0.82.0"
+    "n8n-core": "^0.87.0"
   },
   "jest": {
     "transform": {
@@ -73,5 +77,9 @@
       "js",
       "json"
     ]
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/quansenB/n8n-nodes-zammad/issues"
+  },
+  "homepage": "https://github.com/quansenB/n8n-nodes-zammad#readme"
 }
