@@ -1,9 +1,9 @@
 {
-  "name": "@digital-boss/n8n-nodes-zammad",
+  "name": "@digital-boss/n8n-nodes-suiteCrm",
   "version": "1.0.2",
   "author": "Iñaki Breinbauer",
   "license": "GPL-3.0",
-  "description": "Zammad support for n8n",
+  "description": "suiteCrm support for n8n",
   "keywords": [
     "n8n",
     "nodemation",
@@ -14,12 +14,12 @@
     "customer service",
     "nodes",
     "custom",
-    "zammad",
+    "suiteCrm",
     "workflow"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/quansenB/n8n-nodes-zammad.git"
+    "url": "git+https://github.com/quansenB/n8n-nodes-suiteCrm.git"
   },
   "main": "index.js",
   "scripts": {
@@ -35,12 +35,10 @@
   ],
   "n8n": {
     "credentials": [
-      "dist/credentials/ZammadBasicApi.credentials.js",
-      "dist/credentials/ZammadOAuth2Api.credentials.js",
-      "dist/credentials/ZammadTokenApi.credentials.js"
+      "dist/credentials/SuiteCrmApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Zammad/Zammad.node.js"
+      "dist/nodes/SuiteCrm/SuiteCrm.node.js"
     ]
   },
   "devDependencies": {
@@ -79,7 +77,7 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/quansenB/n8n-nodes-zammad/issues"
+    "url": "https://github.com/quansenB/n8n-nodes-suiteCrm/issues"
   },
-  "homepage": "https://github.com/quansenB/n8n-nodes-zammad#readme"
+  "homepage": "https://github.com/quansenB/n8n-nodes-suiteCrm#readme"
 }
