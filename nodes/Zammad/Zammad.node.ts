@@ -26,7 +26,7 @@ export class Zammad implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: ' Zammad',
 		name: 'zammad',
-		icon: 'file:zammad.svg',
+		icon: 'file:zammad.png',
 		group: ['input'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
