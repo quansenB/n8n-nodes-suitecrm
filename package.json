@@ -1,6 +1,6 @@
 {
   "name": "@digital-boss/n8n-nodes-zammad",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "author": "Iñaki Breinbauer",
   "license": "GPL-3.0",
   "description": "Zammad support for n8n",
