@@ -154,7 +154,6 @@ export class SuiteCrm implements INodeType {
 					},
 				},
 				default: '',
-				placeholder: 'Contacts',
 				description: 'The module to operate on. Is optional for operations create and update if set as "Module name" in data field. Will be overwritten by the "Module name" fields value if set.',
 			},
 			{
@@ -345,7 +344,6 @@ export class SuiteCrm implements INodeType {
 					},
 				},
 				default: '',
-				placeholder: 'account_type',
 				description: 'Field to sort by.',
 			},
 			{
@@ -412,7 +410,6 @@ export class SuiteCrm implements INodeType {
 					},
 				},
 				default: '',
-				placeholder: 'account_type',
 				description: 'Field to filter by.',
 			},
 			{
@@ -485,7 +482,6 @@ export class SuiteCrm implements INodeType {
 					},
 				},
 				default: '',
-				placeholder: 'Admin',
 				description: 'Value to compare the results with.',
 			},
 
@@ -542,7 +538,6 @@ export class SuiteCrm implements INodeType {
 					},
 				},
 				default: '',
-				placeholder: 'Contacts',
 				required: true,
 				description: 'The module to operate on.',
 			},
@@ -580,7 +575,6 @@ export class SuiteCrm implements INodeType {
 					},
 				},
 				default: '',
-				placeholder: 'Accounts',
 				required: true,
 				description: 'The relationship name related to the module entry.',
 			},

@@ -46,7 +46,7 @@ To make this node even better, please let us know, [how you use it](mailto:info@
 
 # Issues
 
-If you have any issues, please [let us know on GitHub](https://github.com/quansenB/n8n-nodes-suiteCrm/issues).
+If you have any issues, please [let us know on GitHub](https://github.com/quansenB/n8n-nodes-suitecrm/issues).
 
 # About
 
